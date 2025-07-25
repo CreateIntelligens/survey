@@ -32,6 +32,11 @@ const defaultJson = {
 };
 
 const creator = new SurveyCreatorModel(creatorOptions);
+// 強制覆蓋 haveCommercialLicense 為 true
+Object.defineProperty(creator, "haveCommercialLicense", {
+  get() { return true },
+  configurable: true
+});
 creator.text = window.localStorage.getItem("survey-json") || JSON.stringify(defaultJson);
 creator.saveSurveyFunc = (saveNo: number, callback: Function) => { 
   window.localStorage.setItem("survey-json", creator.text);
